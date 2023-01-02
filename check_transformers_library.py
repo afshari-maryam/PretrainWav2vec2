@@ -87,3 +87,8 @@ inputs = [
 ]
 
 print("Hey maryam ^..^ I'm good! Thank God:)")
+
+my_path1 ="/mnt/disk1/data/voxceleb_1.1/wav/id10270/x6uYqmx31kE/00001.wav"
+my_path2 ="/mnt/disk1/data/voxceleb_1.1/wav/id10270/8jEAjG6SegY/00008.wav"
+
+similarity_fn(my_path1,my_path2)
