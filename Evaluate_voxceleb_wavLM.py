@@ -106,8 +106,15 @@ speaker2 =[]
 for line in Lines:
   temp_list1 = line.split()
   labels.append(int(temp_list1[0]))
-  speaker1.append(str(temp_list1[1]))
-  speaker2.append(str(temp_list1[2]))
+  speaker1.append(str(temp_list1[1].decode("utf-8")))
+  speaker2.append(str(temp_list1[2].decode("utf-8")))
+
+
+#for line in Lines:
+#  temp_list1 = line.split()
+#  labels.append(int(temp_list1[0]))
+#  speaker1.append(str(temp_list1[1]))
+#  speaker2.append(str(temp_list1[2]))
 
 #check whether ok or not?
 #print(labels[0])
@@ -130,7 +137,7 @@ print(f"file audio 1 =  {file_path1}")
 
 #file2 = list2[2]
 #file_path2 = os.path.join(root, str(file2))
-file_path2 = os.path.join(root, speaker2[0])
+file_path2 = os.path.join(root, str(speaker2[0]))
 #print(file_path2)
 print(f"file audio 2 =  {file_path2}")
 
