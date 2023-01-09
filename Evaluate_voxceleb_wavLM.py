@@ -20,6 +20,7 @@ import torchaudio
 from torchaudio.sox_effects import apply_effects_tensor
 import numpy as np
 from transformers import AutoFeatureExtractor, AutoModelForAudioXVector
+import itertools
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -143,3 +144,39 @@ print(f"file audio 2 =  {file_path2}")
 
 print("similarity function 2:")
 similarity_fn(file_path1,file_path2)
+
+#Third phase---------------------------------------------
+
+print("Second phase :------------------------------------------------------------------------")
+# Set the model to evaluation mode
+#model.eval()
+
+# Initialize an empty score list to store the similarities
+scores = []
+
+for (waveform1,waveform2) in zip(speaker1,speaker2):
+  # Preprocess the waveforms
+  waveform1 = waveform1.squeeze(0).numpy()
+  waveform2 = waveform2.squeeze(0).numpy()
+  waveform1, _ = apply_effects_tensor(torch.tensor(waveform1).unsqueeze(0), waveform1.sample_rate, EFFECTS)
+  waveform2, _ = apply_effects_tensor(torch.tensor(waveform2).unsqueeze(0), waveform2.sample_rate, EFFECTS)
+
+
+  # Extract features from the waveforms
+  input1 = feature_extractor(waveform1.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
+  input2 = feature_extractor(waveform2.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
+
+  # Compute the embeddings for the waveforms
+  with torch.no_grad():
+      emb1 = model(input1).embeddings
+      emb2 = model(input2).embeddings
+  emb1 = torch.nn.functional.normalize(emb1, dim=-1).cpu()
+  emb2 = torch.nn.functional.normalize(emb2, dim=-1).cpu()
+
+  # Compute the similarity between the embeddings
+  similarity = cosine_sim(emb1, emb2).numpy()[0]
+
+  # Add the similarity to the list score
+  scores.append(similarity)
+
+print(f"scores[0] = {scores[0]}")
