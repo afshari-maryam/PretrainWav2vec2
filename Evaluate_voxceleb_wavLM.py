@@ -153,14 +153,17 @@ print("Second phase :-----------------------------------------------------------
 
 # Initialize an empty score list to store the similarities
 scores = []
+root = "/mnt/disk1/data/voxceleb_1.1/wav/"
 
 for (path1,path2) in zip(speaker1,speaker2):
-
-  wav1, sr1 = load_audio(path1)
+  
+  file_path1 = os.path.join(root, path1)
+  file_path2 = os.path.join(root, path2)
+  wav1, sr1 = load_audio(file_path1)
   print("wav1 details : ")
   print(wav1, wav1.shape, wav1.dtype)
   wav1, _ = apply_effects_tensor(torch.tensor(wav1).unsqueeze(0), sr1, EFFECTS)
-  wav2, sr2 = load_audio(path2)
+  wav2, sr2 = load_audio(file_path2)
   wav2, _ = apply_effects_tensor(torch.tensor(wav2).unsqueeze(0), sr2, EFFECTS)
 
 
