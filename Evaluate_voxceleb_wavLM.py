@@ -154,17 +154,29 @@ print("Second phase :-----------------------------------------------------------
 # Initialize an empty score list to store the similarities
 scores = []
 
-for (waveform1,waveform2) in zip(speaker1,speaker2):
-  # Preprocess the waveforms
-  waveform1 = waveform1.squeeze(0).numpy()
-  waveform2 = waveform2.squeeze(0).numpy()
-  waveform1, _ = apply_effects_tensor(torch.tensor(waveform1).unsqueeze(0), waveform1.sample_rate, EFFECTS)
-  waveform2, _ = apply_effects_tensor(torch.tensor(waveform2).unsqueeze(0), waveform2.sample_rate, EFFECTS)
+for (path1,path2) in zip(speaker1,speaker2):
+
+  wav1, sr1 = load_audio(path1)
+  print("wav1 details : ")
+  print(wav1, wav1.shape, wav1.dtype)
+  wav1, _ = apply_effects_tensor(torch.tensor(wav1).unsqueeze(0), sr1, EFFECTS)
+  wav2, sr2 = load_audio(path2)
+  wav2, _ = apply_effects_tensor(torch.tensor(wav2).unsqueeze(0), sr2, EFFECTS)
+
+
+  print("wav1 and 2 shape : ")
+  print(wav1.shape, wav2.shape)
+
+  ## Preprocess the waveforms
+  #waveform1 = waveform1.squeeze(0).numpy()
+  #waveform2 = waveform2.squeeze(0).numpy()
+  #waveform1, _ = apply_effects_tensor(torch.tensor(waveform1).unsqueeze(0), waveform1.sample_rate, EFFECTS)
+  #waveform2, _ = apply_effects_tensor(torch.tensor(waveform2).unsqueeze(0), waveform2.sample_rate, EFFECTS)
 
 
   # Extract features from the waveforms
-  input1 = feature_extractor(waveform1.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
-  input2 = feature_extractor(waveform2.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
+  input1 = feature_extractor(wav1.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
+  input2 = feature_extractor(wav2.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
 
   # Compute the embeddings for the waveforms
   with torch.no_grad():
