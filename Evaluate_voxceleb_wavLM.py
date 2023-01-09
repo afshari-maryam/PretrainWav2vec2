@@ -92,3 +92,47 @@ my_path1 ="/mnt/disk1/data/voxceleb_1.1/wav/id10270/x6uYqmx31kE/00001.wav"
 my_path2 ="/mnt/disk1/data/voxceleb_1.1/wav/id10270/8jEAjG6SegY/00008.wav"
 
 similarity_fn(my_path1,my_path2)
+
+#------------------this Part add for voxceleb reading------------------
+#import os
+# Using readlines()
+file1 = open('veri_test.txt', 'rb')
+Lines = file1.readlines()
+
+labels =[]
+speaker1 =[]
+speaker2 =[]
+
+for line in Lines:
+  temp_list1 = line.split()
+  labels.append(int(temp_list1[0]))
+  speaker1.append(str(temp_list1[1]))
+  speaker2.append(str(temp_list1[2]))
+
+#check whether ok or not?
+#print(labels[0])
+print(f"labels[0] =  {labels[0]}")
+print(f"speaker1[0] =  {speaker1[0]}")
+print(f"speaker2[0] =  {speaker2[0]}")
+
+
+root = "/mnt/disk1/data/voxceleb_1.1/wav/"
+#get_audio_1-----------------------------------------
+#list1 =Lines[0].split()
+file_path1 = os.path.join(root, speaker1[0])
+#print(file_path1)
+print(f"file audio 1 =  {file_path1}")
+
+#get_audio_2
+#list2 =Lines[1].split()
+#/mnt/disk1/data/voxceleb_1.1
+#code_file_Path : /home/afshari/project2/PretrainWav2vec2
+
+#file2 = list2[2]
+#file_path2 = os.path.join(root, str(file2))
+file_path2 = os.path.join(root, speaker2[0])
+#print(file_path2)
+print(f"file audio 2 =  {file_path2}")
+
+print("similarity function 2:")
+similarity_fn(file_path1,file_path2)
