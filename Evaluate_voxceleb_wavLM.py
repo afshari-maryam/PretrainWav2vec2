@@ -159,6 +159,7 @@ for (path1,path2) in zip(speaker1,speaker2):
   
   file_path1 = os.path.join(root, path1)
   file_path2 = os.path.join(root, path2)
+  
   wav1, sr1 = load_audio(file_path1)
   print("wav1 details : ")
   print(wav1, wav1.shape, wav1.dtype)
