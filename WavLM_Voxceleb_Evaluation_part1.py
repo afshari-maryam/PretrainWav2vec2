@@ -91,6 +91,8 @@ def compute_scores(spkr_list1,spkr_list2):
   root = "/mnt/disk1/data/voxceleb_1.1/wav/"
   count = 0
   print("comput scores function starts ....................................")
+  print(".............................. ....................................")
+  print(".............................. ....................................")
   for (path1,path2) in zip(spkr_list1,spkr_list2):
     count = count+1
     print(f"number = {count}")
