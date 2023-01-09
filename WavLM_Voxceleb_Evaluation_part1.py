@@ -11,7 +11,7 @@ import numpy as np
 from transformers import AutoFeatureExtractor, AutoModelForAudioXVector
 import itertools
 import numpy as np
-from sklearn.metrics import roc_curve, eer
+#from sklearn.metrics import roc_curve, eer
 
 # Print the version of the transformers library
 print(transformers.__version__)
@@ -56,11 +56,11 @@ def similarity_fn(path1, path2):
         return '<b style="color:red">ERROR: Please record audio for *both* speakers!</b>'
     
     wav1, sr1 = load_audio(path1)
-    print(wav1, wav1.shape, wav1.dtype)
+    #print(wav1, wav1.shape, wav1.dtype)
     wav1, _ = apply_effects_tensor(torch.tensor(wav1).unsqueeze(0), sr1, EFFECTS)
     wav2, sr2 = load_audio(path2)
     wav2, _ = apply_effects_tensor(torch.tensor(wav2).unsqueeze(0), sr2, EFFECTS)
-    print(wav1.shape, wav2.shape)
+    #print(wav1.shape, wav2.shape)
 
     input1 = feature_extractor(wav1.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
     input2 = feature_extractor(wav2.squeeze(0), return_tensors="pt", sampling_rate=16000).input_values.to(device)
@@ -103,6 +103,7 @@ def compute_scores(spkr_list1,spkr_list2):
 file1 = open('veri_test.txt', 'rb')
 Lines = file1.readlines()
 
+root = "/mnt/disk1/data/voxceleb_1.1/wav/"
 labels =[]
 speaker1 =[]
 speaker2 =[]
