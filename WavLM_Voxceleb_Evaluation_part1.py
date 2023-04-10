@@ -24,6 +24,8 @@ print(gr.__version__)
 print("In the name of GOD")
 print("Date1: 2-Janyuary-2023")
 print("Date2: 9-Janyuary-2023")
+print("Date3: 10-April-2023")
+print("Evaluate the whole of dataset on the WavLM model")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

@@ -12,8 +12,10 @@ print(gr.__version__)
 print("In the name of GOD")
 print("Date: 2-Janyuary-2023")
 print("Ya Zahra")
-print("wll come back Date: 15-February-2023")
-
+print("well come back Date: 15-February-2023")
+print("Ya Hossein")
+print("well come back Date:  February .... March.....April.......10-April-2023")
+print("Check the transformers library.")
 import os
 import gradio as gr
 import torch

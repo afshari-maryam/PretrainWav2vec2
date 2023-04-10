@@ -11,6 +11,9 @@ print(gr.__version__)
 #print(pydub.__version__)
 print("In the name of GOD")
 print("Date: 2-Janyuary-2023")
+print("January....February...March....April....")
+print("Date: 10-April-2023")
+print("Evaluate Speaker Verification of the 2 audio from dataset with the WavLM model")
 
 import os
 import gradio as gr
